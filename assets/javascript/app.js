@@ -54,9 +54,14 @@ let questionNum = 0;
 let choice = "";
 
 const displayQuestion = function(questionNum) {
+  $("#solution").empty();
   $("#question").html(questions[questionNum].question);
   for (let j = 0; j < 4; j++) {
-    $("#buttons").append($(`<button class="choice" id="choice${j + 1}">`).html(questions[questionNum].choices[j]));
+    $("#buttons").append(
+      $(`<button class="choice" id="choice${j + 1}">`).html(
+        questions[questionNum].choices[j]
+      )
+    );
   }
 };
 displayQuestion(questionNum);
@@ -74,10 +79,12 @@ const showSolution = function(result) {
   $("#buttons").empty();
   $("#question").html(`${result}`);
   $("#solution").html(`The answer is ${questions[questionNum].answer}`);
-  solutionTimer();
+  setTimeout(function() {
+    displayQuestion(questionNum);
+  }, 2000);
 };
 
-$(".choice").on("click", function() {
+$("#buttons").on("click", ".choice", function() {
   choice = $(this).html();
   checkAnswer(choice, questionNum);
 });
