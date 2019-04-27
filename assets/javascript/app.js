@@ -52,6 +52,7 @@ const questions = [
 ];
 let questionNum = 0;
 let choice = "";
+let correctCount = 0;
 
 const displayQuestion = function(questionNum) {
   $("#solution").empty();
@@ -69,22 +70,37 @@ displayQuestion(questionNum);
 const checkAnswer = function(choice, num) {
   if (choice === questions[num].answer) {
     showSolution("Correct!");
+    correctCount++;
   } else {
     showSolution("Sorry!");
   }
   questionNum++;
+  if (questionNum === questions.length) {
+      setTimeout(gameOver, 2000);
+  }
+  else {
+  setTimeout(function() {
+    displayQuestion(questionNum);
+  }, 2000);
+  }
 };
 
 const showSolution = function(result) {
   $("#buttons").empty();
   $("#question").html(`${result}`);
   $("#solution").html(`The answer is ${questions[questionNum].answer}`);
-  setTimeout(function() {
-    displayQuestion(questionNum);
-  }, 2000);
 };
 
 $("#buttons").on("click", ".choice", function() {
   choice = $(this).html();
   checkAnswer(choice, questionNum);
 });
+
+const gameOver = function() {
+    $("#question").empty()
+    $("#solution").html(`<h1>Game Over!</h1><p>You got ${correctCount} questions right out of ${questions.length}. Click Restart to play again!`);
+    $("#solution").append(`<button id="restart">Restart</button>`);
+}
+
+//$("#solution").on("click", "#restart", restartGame());
+
