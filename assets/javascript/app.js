@@ -64,7 +64,17 @@ const displayQuestion = function(questionNum) {
       )
     );
   }
+  setTimeout(outOfTime, 5000);
 };
+
+const outOfTime = function() {
+    showSolution("Sorry!");
+    questionNum++;
+    setTimeout(function() {
+        displayQuestion(questionNum);
+      }, 2000);
+}
+
 displayQuestion(questionNum);
 
 const checkAnswer = function(choice, num) {
@@ -103,4 +113,3 @@ const gameOver = function() {
 }
 
 //$("#solution").on("click", "#restart", restartGame());
-
