@@ -1,24 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>TGIF Trivia Game</title>
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+  <body>
     <div class="container">
-        <div id="timer"></div>
-        <div id="question"></div>
-        <div id="buttons">
-            <button id="start">Start Game!</button>
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center">TGIF Trivia Game!</h1>
         </div>
-        <div id="solution"></div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div id="image">
+            <img
+              src="assets/images/start-image.jpg"
+              alt=""
+              class="img-fluid d-block mx-auto"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div id="timer"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div id="question"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div id="buttons" class="p-3">
+            <button id="start" class="d-block mx-auto btn btn-primary">Start Game!</button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div id="solution"></div>
+        </div>
+      </div>
     </div>
     <script
-    src="https://code.jquery.com/jquery-3.4.0.min.js"
-    integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
-    crossorigin="anonymous"></script>
+      src="https://code.jquery.com/jquery-3.4.0.min.js"
+      integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+      crossorigin="anonymous"
+    ></script>
     <script src="assets/javascript/app.js"></script>
-</body>
+  </body>
 </html>

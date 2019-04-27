@@ -1,13 +1,16 @@
+//Variables
+
 const questions = [
   {
-    question: "question 1",
+    question: "What network aired the TGIF lineup?",
     choices: [
-      "question 1 choice 1",
-      "question 1 choice 2",
-      "question 1 choice 3",
-      "question 1 choice 4"
+      "ABC",
+      "NBC",
+      "CBS",
+      "FOX"
     ],
-    answer: "question 1 answer"
+    answer: "ABC",
+    image: "https://media.giphy.com/media/wuBtredIF3iqQ/giphy.gif"
   },
   {
     question: "question 2",
@@ -54,58 +57,78 @@ const questions = [
 let questionNum = 0;
 let choice = "";
 let correctCount = 0;
-let count = 5;
+let count = 10;
 let intervalId;
 let timeoutId;
 
+//Click event handlers
 
 $("#start").on("click", function() {
     displayQuestion(questionNum);
-})
+});
+
+$("#buttons").on("click", ".choice", function() {
+  choice = $(this).html();
+  checkAnswer(choice, questionNum);
+});
+
+$("#solution").on("click", "#restart", function() {
+    questionNum = 0;
+    correctCount = 0;
+    displayQuestion(questionNum);
+});
+
+//functions
 
 const displayQuestion = function(questionNum) {
+    $("#image").empty()
   $("#solution").empty();
   $("#buttons").empty();
   $("#question").html(questions[questionNum].question);
   for (let j = 0; j < 4; j++) {
     $("#buttons").append(
-      $(`<button class="choice" id="choice${j + 1}">`).html(
+      $(`<button class="choice d-block mx-auto btn btn-primary m-2" id="choice${j + 1}">`).html(
         questions[questionNum].choices[j]
       )
     );
   }
-  timeoutId = setTimeout(outOfTime, 5000);
-  $("#timer").html(`<h3>${count} seconds left!`);
-  intervalId = setInterval(countDown, 1000);
+  timeoutId = setTimeout(outOfTime, 10000);
+  $("#timer").html(`<h3 class="text-center">${count} seconds left!`);
+    intervalId = setInterval(countDown, 1000);
 };
 
-const countDown = function() {
-    count--;
-    $("#timer").html(`<h3>${count} seconds left!`);
-}
-
-const outOfTime = function() {
+const resetTimers = function () {
     $("#timer").empty();
     showSolution("Sorry!");
     clearInterval(intervalId);
     clearTimeout(timeoutId);
-    count = 5;
-    questionNum++;
+    count = 10;
+}
+
+const countDown = function() {
+    count--;
+    $("#timer").html(`<h3 class="text-center">${count} seconds left!`);
+}
+
+const checkGameWin = function() {
     if (questionNum === questions.length) {
-        setTimeout(gameOver, 2000);
+        setTimeout(gameOver, 3000);
     }
     else {
     setTimeout(function() {
       displayQuestion(questionNum);
-    }, 2000);
+    }, 3000);
     }
 }
 
+const outOfTime = function() {
+    resetTimers();
+    questionNum++;
+    checkGameWin();
+}
+
 const checkAnswer = function(choice, num) {
-    $("#timer").empty();
-    clearInterval(intervalId);
-    clearTimeout(timeoutId);
-    count = 5;
+    resetTimers();
   if (choice === questions[num].answer) {
     showSolution("Correct!");
     correctCount++;
@@ -113,35 +136,19 @@ const checkAnswer = function(choice, num) {
     showSolution("Sorry!");
   }
   questionNum++;
-  if (questionNum === questions.length) {
-      setTimeout(gameOver, 2000);
-  }
-  else {
-  setTimeout(function() {
-    displayQuestion(questionNum);
-  }, 2000);
-  }
+  checkGameWin();
 };
 
 const showSolution = function(result) {
   $("#buttons").empty();
-  $("#question").html(`${result}`);
-  $("#solution").html(`The answer is ${questions[questionNum].answer}`);
+  $("#question").html(`<h3 class="text-center">${result}</h3>`);
+  $("#solution").html(`<p class="text-center">The answer is ${questions[questionNum].answer}</p>`);
+  $("#image").html(`<img class="img-fluid d-block mx-auto" src="${questions[questionNum].image}">`)
+  console.log(questions[questionNum].image)
 };
-
-$("#buttons").on("click", ".choice", function() {
-  choice = $(this).html();
-  checkAnswer(choice, questionNum);
-});
 
 const gameOver = function() {
     $("#question").empty()
-    $("#solution").html(`<h1>Game Over!</h1><p>You got ${correctCount} questions right out of ${questions.length}. Click Restart to play again!`);
-    $("#solution").append(`<button id="restart">Restart</button>`);
+    $("#solution").html(`<h1 class="text-center">Game Over!</h1><p class="text-center">You got ${correctCount} questions right out of ${questions.length}. Click Restart to play again!`);
+    $("#solution").append(`<button id="restart" class="d-block mx-auto btn btn-primary">Restart</button>`);
 }
-
-$("#solution").on("click", "#restart", function() {
-    questionNum = 0;
-    correctCount = 0;
-    displayQuestion(questionNum);
-});
