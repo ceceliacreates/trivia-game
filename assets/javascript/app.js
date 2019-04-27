@@ -50,12 +50,22 @@ const questions = [
     answer: "question 5 answer"
   }
 ];
+
 let questionNum = 0;
 let choice = "";
 let correctCount = 0;
+let count = 5;
+let intervalId;
+let timeoutId;
+
+
+$("#start").on("click", function() {
+    displayQuestion(questionNum);
+})
 
 const displayQuestion = function(questionNum) {
   $("#solution").empty();
+  $("#buttons").empty();
   $("#question").html(questions[questionNum].question);
   for (let j = 0; j < 4; j++) {
     $("#buttons").append(
@@ -64,11 +74,22 @@ const displayQuestion = function(questionNum) {
       )
     );
   }
-  setTimeout(outOfTime, 5000);
+  timeoutId = setTimeout(outOfTime, 5000);
+  $("#timer").html(`<h3>${count} seconds left!`);
+  intervalId = setInterval(countDown, 1000);
 };
 
+const countDown = function() {
+    count--;
+    $("#timer").html(`<h3>${count} seconds left!`);
+}
+
 const outOfTime = function() {
+    $("#timer").empty();
     showSolution("Sorry!");
+    clearInterval(intervalId);
+    clearTimeout(timeoutId);
+    count = 5;
     questionNum++;
     if (questionNum === questions.length) {
         setTimeout(gameOver, 2000);
@@ -80,9 +101,11 @@ const outOfTime = function() {
     }
 }
 
-displayQuestion(questionNum);
-
 const checkAnswer = function(choice, num) {
+    $("#timer").empty();
+    clearInterval(intervalId);
+    clearTimeout(timeoutId);
+    count = 5;
   if (choice === questions[num].answer) {
     showSolution("Correct!");
     correctCount++;
@@ -117,4 +140,8 @@ const gameOver = function() {
     $("#solution").append(`<button id="restart">Restart</button>`);
 }
 
-//$("#solution").on("click", "#restart", restartGame());
+$("#solution").on("click", "#restart", function() {
+    questionNum = 0;
+    correctCount = 0;
+    displayQuestion(questionNum);
+});
