@@ -70,9 +70,14 @@ const displayQuestion = function(questionNum) {
 const outOfTime = function() {
     showSolution("Sorry!");
     questionNum++;
+    if (questionNum === questions.length) {
+        setTimeout(gameOver, 2000);
+    }
+    else {
     setTimeout(function() {
-        displayQuestion(questionNum);
-      }, 2000);
+      displayQuestion(questionNum);
+    }, 2000);
+    }
 }
 
 displayQuestion(questionNum);
