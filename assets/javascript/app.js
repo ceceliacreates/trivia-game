@@ -13,44 +13,48 @@ const questions = [
     image: "https://media.giphy.com/media/wuBtredIF3iqQ/giphy.gif"
   },
   {
-    question: "question 2",
+    question: "What actor/actress from the movie 'Clueless' never appeared on the tv show version?",
     choices: [
-      "question 2 choice 1",
-      "question 2 choice 2",
-      "question 2 choice 3",
-      "question 2 choice 4"
+      "Paul Rudd",
+      "Alicia Silverstone",
+      "Stacey Dash",
+      "Donald Faison"
     ],
-    answer: "question 2 answer"
+    answer: "Alicia Silverstone",
+    image: "https://media.giphy.com/media/3o7aTIGlhSo1bL8QUg/giphy.gif"
   },
   {
-    question: "question 3",
+    question: "What was the name of the 'smoother' alter ego for Steve Urkel from Family Matters?",
     choices: [
-      "question 3 choice 1",
-      "question 3 choice 2",
-      "question 3 choice 3",
-      "question 3 choice 4"
+      "Stevo Urkel",
+      "Stevie U",
+      "Stefan Urquelle",
+      "Stephen Urk"
     ],
-    answer: "question 3 answer"
+    answer: "Stefan Urquelle",
+    image: "https://media.giphy.com/media/xTiQyLuaW8BjqlOXCw/giphy.gif"
   },
   {
-    question: "question 4",
+    question: "In 'Step by Step', how many children did Frank and Carol have combined by the end of the series?",
     choices: [
-      "question 4 choice 1",
-      "question 4 choice 2",
-      "question 4 choice 4",
-      "question 4 choice 4"
+      "5",
+      "8",
+      "7",
+      "6"
     ],
-    answer: "question 4 answer"
+    answer: "7",
+    image: "https://media.giphy.com/media/3ohhwAQo6W6qGxg4pi/giphy.gif"
   },
   {
-    question: "question 5",
+    question: "In what American city does 'Boy Meets World' take place?",
     choices: [
-      "question 5 choice 1",
-      "question 5 choice 2",
-      "question 5 choice 5",
-      "question 5 choice 4"
+      "Philadelphia",
+      "Chicago",
+      "St. Louis",
+      "Baltimore"
     ],
-    answer: "question 5 answer"
+    answer: "Philadelphia",
+    image: "https://media.giphy.com/media/n8Vvbmmwx9F0k/giphy.gif"
   }
 ];
 
@@ -84,7 +88,7 @@ const displayQuestion = function(questionNum) {
     $("#image").empty()
   $("#solution").empty();
   $("#buttons").empty();
-  $("#question").html(questions[questionNum].question);
+  $("#question").html(`<h5 class="text-center">${questions[questionNum].question}</h5>`);
   for (let j = 0; j < 4; j++) {
     $("#buttons").append(
       $(`<button class="choice d-block mx-auto btn btn-primary m-2" id="choice${j + 1}">`).html(
@@ -149,6 +153,7 @@ const showSolution = function(result) {
 
 const gameOver = function() {
     $("#question").empty()
+    $("#image").html(`<img class="img-fluid d-block mx-auto" src="https://media.giphy.com/media/3o85xr46bezqkTazsc/giphy.gif">`)
     $("#solution").html(`<h1 class="text-center">Game Over!</h1><p class="text-center">You got ${correctCount} questions right out of ${questions.length}. Click Restart to play again!`);
     $("#solution").append(`<button id="restart" class="d-block mx-auto btn btn-primary">Restart</button>`);
 }
